@@ -1,0 +1,194 @@
+!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Լրատվական կայք - Նորություններ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <a href="index.html" class="logo">News<span>AM</span></a>
+                <div class="auth-buttons">
+                    <div class="user-info">
+                        <span class="username"></span>
+                        <button class="btn-logout" id="logoutBtn">Դուրս գալ</button>
+                    </div>
+                    <button class="btn btn-register" id="registerBtn">Գրանցվել</button>
+                    <button class="btn btn-login" id="loginBtn">Մուտք գործել</button>
+                </div>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" data-category="all">Գլխավոր</a></li>
+                    <li><a href="#" data-category="politics">Քաղաքականություն</a></li>
+                    <li><a href="#" data-category="sport">Սպորտ</a></li>
+                    <li><a href="#" data-category="business">Բիզնես</a></li>
+                    <li><a href="#" data-category="culture">Մշակույթ</a></li>
+                    <li><a href="#" data-category="technology">Տեխնոլոգիա</a></li>
+                    <li><a href="#" data-category="world">Աշխարհ</a></li>
+                    <li><a href="#" data-category="health">Առողջություն</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <button class="btn btn-add-news" id="addNewsBtn">Ավելացնել նորություն</button>
+        
+        <div class="add-news-form" id="addNewsForm">
+            <h2 class="form-title">Ավելացնել նոր նորություն</h2>
+            <div class="message" id="formMessage"></div>
+            <form id="newsForm" action="add_news.php" method="POST">
+                <div class="form-group">
+                    <label for="newsTitle">Վերնագիր</label>
+                    <input type="text" id="newsTitle" name="newsTitle" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="newsCategory">Թեմա</label>
+                    <select id="newsCategory" name="newsCategory" class="form-control" required>
+                        <option value="">Ընտրել թեմա</option>
+                        <option value="politics">Քաղաքականություն</option>
+                        <option value="sport">Սպորտ</option>
+                        <option value="business">Բիզնես</option>
+                        <option value="culture">Մշակույթ</option>
+                        <option value="technology">Տեխնոլոգիա</option>
+                        <option value="world">Աշխարհ</option>
+                        <option value="health">Առողջություն</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="newsContent">Բովանդակություն</label>
+                    <textarea id="newsContent" name="newsContent" class="form-control" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="newsImage">Նկարի URL (ըստ ցանկության)</label>
+                    <input type="text" id="newsImage" name="newsImage" class="form-control" placeholder="https://example.com/image.jpg">
+                </div>
+                <button type="submit" class="btn btn-submit">Հրապարակել</button>
+            </form>
+        </div>
+
+        <main>
+            <div class="content">
+                <div class="news-categories">
+                    <h2>Թեմաներ</h2>
+                    <ul class="category-list" id="categoryList">
+                        <li class="active" data-category="all">Բոլորը</li>
+                        <li data-category="politics">Քաղաքականություն</li>
+                        <li data-category="sport">Սպորտ</li>
+                        <li data-category="business">Բիզնես</li>
+                        <li data-category="culture">Մշակույթ</li>
+                        <li data-category="technology">Տեխնոլոգիա</li>
+                        <li data-category="world">Աշխարհ</li>
+                        <li data-category="health">Առողջություն</li>
+                    </ul>
+                </div>
+                
+                <div class="news-articles" id="newsArticles">
+                    <!-- News articles will be loaded here via PHP -->
+                    <?php include 'get_news.php'; ?>
+                </div>
+            </div>
+            
+            <aside class="sidebar">
+                <h2>Ամենաընթերցվածը</h2>
+                <div class="popular-news">
+                    <?php include 'popular_news.php'; ?>
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <h2>Կայքի մասին</h2>
+                    <p style="margin-top: 10px; font-size: 14px; color: #666;">
+                        Մեր լրատվական կայքը թույլ է տալիս գրանցված օգտատերերին ավելացնել նորություններ։ 
+                        Բոլոր նորությունները ստուգվում են և հրապարակվում ընդհանուր հասանելիության համար։
+                    </p>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Register Form -->
+    <div class="auth-form" id="registerForm">
+        <h2 class="auth-title">Գրանցվել</h2>
+        <div class="message" id="registerMessage"></div>
+        <form id="registerFormElement" action="register.php" method="POST">
+            <div class="form-group">
+                <label for="regUsername">Օգտանուն</label>
+                <input type="text" id="regUsername" name="username" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="regEmail">Էլ. հասցե</label>
+                <input type="email" id="regEmail" name="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="regPassword">Գաղտնաբառ</label>
+                <input type="password" id="regPassword" name="password" class="form-control" required minlength="6">
+            </div>
+            <div class="form-group">
+                <label for="regConfirmPassword">Հաստատել գաղտնաբառը</label>
+                <input type="password" id="regConfirmPassword" name="confirmPassword" class="form-control" required minlength="6">
+            </div>
+            <button type="submit" class="btn btn-submit" style="width: 100%;">Գրանցվել</button>
+        </form>
+        <div class="auth-switch">
+            Արդեն գրանցված եք? <a href="#" id="showLogin">Մուտք գործել</a>
+        </div>
+    </div>
+
+    <!-- Login Form -->
+    <div class="auth-form" id="loginForm">
+        <h2 class="auth-title">Մուտք գործել</h2>
+        <div class="message" id="loginMessage"></div>
+        <form id="loginFormElement" action="login.php" method="POST">
+            <div class="form-group">
+                <label for="loginEmail">Էլ. հասցե</label>
+                <input type="email" id="loginEmail" name="email" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Գաղտնաբառ</label>
+                <input type="password" id="loginPassword" name="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-submit" style="width: 100%;">Մուտք գործել</button>
+        </form>
+        <div class="auth-switch">
+            Գրանցված չեք? <a href="#" id="showRegister">Գրանցվել</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <h3>News<span style="color: #ff9800;">AM</span></h3>
+                    <p style="margin-top: 10px; max-width: 300px; color: #ccc;">
+                        Հուսալի և արագ լրատվություն Հայաստանից և աշխարհից:
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <h4>Կապ</h4>
+                    <a href="#">Խմբագրություն</a>
+                    <a href="#">Գովազդ</a>
+                    <a href="#">Առաջարկներ</a>
+                </div>
+                <div class="footer-links">
+                    <h4>Կանոնակարգ</h4>
+                    <a href="#">Օգտագործման պայմաններ</a>
+                    <a href="#">Գաղտնիության քաղաքականություն</a>
+                    <a href="#">Տեղեկատվություն</a>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 NewsAM. Բոլոր իրավունքները պաշտպանված են:
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
